@@ -9,6 +9,7 @@ def input():
 # 구슬은 사방탐색 가능 (구슬은 동시에 움직임)
 # 빨간 구슬과 파란 구슬은 같은 칸에 있을 수 없음
 # 움직인 횟수가 10회를 초과하면 실패
+# #(공이 이동할 수 없는 장애물) / 0(구멍의 위치)
 
 n, m = map(int, input().split())
 
@@ -19,6 +20,8 @@ direction = [(-1,0), (1,0), (0,1), (0,-1)]
 
 def move(x, y, dx, dy):
     cnt = 0
+    # 한 방향으로 움직일 수 있는 만큼 움직이기
+    # 벽에 마주치거나 원래 위치가 구멍이라면 종료
     while board[x+dx][y+dy] != '#' and board[x][y] != 'O':
         x += dx
         y += dy
@@ -44,7 +47,7 @@ def bfs(rx, ry, bx, by):
 
             if board[bx_next][by_next] != 'O':
                 if board[rx_next][ry_next] == 'O':
-                    return cnt
+                    return cnt 
                 if rx_next == bx_next and ry_next == by_next:
                     if rcnt_next > bcnt_next:
                         rx_next -= dx
